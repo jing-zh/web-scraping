@@ -1,11 +1,23 @@
 import scrapy
+from chocolatescraper.config import api_key
 from chocolatescraper.itemsloaders import ChocolateProductLoader
 from chocolatescraper.items import ChocolateProduct
+from urllib.parse import urlencode
+
+API_KEY = api_key
+def get_proxy_url(url):
+    payload = {'api_key': API_KEY, 'url': url}
+    proxy_url = 'http://api.scraperapi.com/?' + urlencode(payload)
+    return proxy_url
+
 
 
 class ChocolateSpider(scrapy.Spider):
     name = "chocolatespider"
-    start_urls = ["https://www.chocolate.co.uk/collections/all"]
+
+    def start_requests(self):
+        start_url = "https://www.chocolate.co.uk/collections/all"
+        yield scrapy.Request(url=get_proxy_url(start_url), callback=self.parse)
 
     def parse(self, response):
         products = response.css('product-item')

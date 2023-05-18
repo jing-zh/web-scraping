@@ -20,7 +20,7 @@ NEWSPIDER_MODULE = "chocolatescraper.spiders"
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 5
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -96,3 +96,12 @@ ITEM_PIPELINES = {
     'chocolatescraper.pipelines.PriceToUSDPipeline':100,
     'chocolatescraper.pipelines.DuplicatesPipeline':200,
 }
+
+DOWNLOADER_MIDDLEWARES = {
+    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    # 'scrapy_user_agents.middlewares.RandomUserAgentMiddleware':400,
+    # 'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 610,
+    # 'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 620,
+}
+
+# PROXY_POOL_ENABLED = True
